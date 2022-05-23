@@ -116,7 +116,9 @@ const BookLibrary = ({ contractAddress }: USContract) => {
 
   const returnBook = async (book) => {
     try {
-      const tx = await bookLibraryContract.borrowBook(getId(book[0]));
+      let bookId: string;
+      await getId(book[0]).then(id => bookId = id.toString())
+      const tx = await bookLibraryContract.returnBook(bookId)
       setIsLoading(true);
       setTxHash(tx.hash);
       await tx.wait();
