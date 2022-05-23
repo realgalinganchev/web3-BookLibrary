@@ -175,14 +175,15 @@ const BookLibrary = ({ contractAddress }: USContract) => {
         :
         <div className="library">
           Library:
-          <ol>
+          <div>
             {books.map(book => (
-              <li key={book}>
-                {book}
+              <div className="book-wrapper" key={book}>
+                <p>Title: {book[0]}</p>
+                <p className="copies">Available copies: {book[1]}</p>
                 <button onClick={() => borrowBook(book)}>Rent me</button>
-              </li>
+              </div>
             ))}
-          </ol>
+          </div>
         </div>
       }
       <div className="my_books">
@@ -207,7 +208,7 @@ const BookLibrary = ({ contractAddress }: USContract) => {
           margin: 20px;
         }
 
-        .error-message{
+        .error-message {
           border: 1px solid;
           margin: 10px auto;
           padding: 15px 10px;
@@ -218,14 +219,14 @@ const BookLibrary = ({ contractAddress }: USContract) => {
 	        background-color: #FFBABA;
         }
 
-        .library{
+        .library {
           background: aliceblue;
           padding: 10px;
           width: 50vw;
           margin: 0 auto;
         }
 
-        .my_books{
+        .my_books {
           background: beige;
           padding: 10px;
           width: 50vw;
@@ -235,6 +236,22 @@ const BookLibrary = ({ contractAddress }: USContract) => {
         form {
           display: flex;
           flex-direction: column;
+        }
+
+        .book-wrapper {
+          display: flex;
+          justify-content: space-between;
+          border-top: 1px dotted black;
+        }
+
+        p {
+          margin: 0;
+          padding:0
+        }
+
+        .copies {
+          position: absolute;
+          left: 47%;
         }
       `}</style>
     </div>
