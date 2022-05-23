@@ -94,14 +94,10 @@ const BookLibrary = ({ contractAddress }: USContract) => {
     setExistingBookCopiesCount(0);
   }
 
-  const getId =  (title) => {
-    return bookLibraryContract.generateIdFromTitle(title)
-  }
-
 
   const borrowBook = async (book) => {
     try {
-      const tx = await bookLibraryContract.borrowBook(getId(book[0]));
+      const tx = await bookLibraryContract.borrowBook(bookLibraryContract.generateIdFromTitle(book[0]));
       setIsLoading(true);
       setTxHash(tx.hash);
       await tx.wait();
@@ -113,7 +109,7 @@ const BookLibrary = ({ contractAddress }: USContract) => {
   }
   const returnBook = async (book) => {
     try {
-      const tx = await bookLibraryContract.returnBook(getId(book[0]));
+      const tx = await bookLibraryContract.returnBook(bookLibraryContract.generateIdFromTitle(book[0]));
       setIsLoading(true);
       setTxHash(tx.hash);
       await tx.wait();
