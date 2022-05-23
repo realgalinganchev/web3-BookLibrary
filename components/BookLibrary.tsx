@@ -106,7 +106,11 @@ const BookLibrary = ({ contractAddress }: USContract) => {
 
   const borrowBook = async (book) => {
     try {
-      const tx = await bookLibraryContract.borrowBook(getId(book[0]));
+      let bookId
+      getId(book[0]).then(data => {
+        bookId = data.toString();
+      })
+      const tx = await bookLibraryContract.borroBook(bookId);
       setIsLoading(true);
       setTxHash(tx.hash);
       await tx.wait();
@@ -124,7 +128,6 @@ const BookLibrary = ({ contractAddress }: USContract) => {
         bookId = data.toString();
       })
       const tx = await bookLibraryContract.returnBook(bookId);
-
       setIsLoading(true);
       setTxHash(tx.hash);
       await tx.wait();
