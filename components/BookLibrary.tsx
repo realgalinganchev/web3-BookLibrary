@@ -95,16 +95,14 @@ const BookLibrary = ({ contractAddress }: USContract) => {
     setExistingBookCopiesCount(0);
   }
 
-  const getId = async (title: string): Promise<string> => {
-    let id: string;
-    id = await bookLibraryContract.generateIdFromTitle(title)
-    return id
-  };
+  const getId = async (title: string): Promise<BigNumber> => {
+    return await bookLibraryContract.generateIdFromTitle(title)
+  }
 
   const borrowBook = async (book) => {
     try {
       let bookId: string;
-      await getId(book[0]).then(id => bookId = id)
+      await getId(book[0]).then(id => bookId = id.toString())
       const tx = await bookLibraryContract.borrowBook(bookId)
       setIsLoading(true);
       setTxHash(tx.hash);
