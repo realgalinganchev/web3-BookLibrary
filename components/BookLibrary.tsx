@@ -92,8 +92,8 @@ const BookLibrary = ({ contractAddress }: USContract) => {
     setExistingBookCopiesCount(0);
   }
 
-  const getId = async (title) => {
-    const id = await bookLibraryContract.generateIdFromTitle(title)
+  const getId = (title) => {
+    const id =  bookLibraryContract.generateIdFromTitle(title)
     return id
   }
 
