@@ -96,11 +96,11 @@ const BookLibrary = ({ contractAddress }: USContract) => {
 
   const getId = async (title) => {
     let id = 0
-    await bookLibraryContract.generateIdFromTitle(title).then( data =>{
-      id = data
+    await bookLibraryContract.generateIdFromTitle(title).then(data => {
+      id = data.toString();
     })
-    
-    return BigInt(id)
+
+    return id
   }
 
 
@@ -118,7 +118,12 @@ const BookLibrary = ({ contractAddress }: USContract) => {
   }
   const returnBook = async (book) => {
     try {
-      const tx = await bookLibraryContract.returnBook(getId(book[0]));
+
+      let bookId
+      getId(book[0]).then(data => {
+        bookId = data.toString();
+      })
+      const tx = await bookLibraryContract.returnBook(bookId);
 
       setIsLoading(true);
       setTxHash(tx.hash);
