@@ -50,10 +50,12 @@ const BookLibrary = ({ contractAddress }: USContract) => {
   }
 
   const displayErrorReason = (err) => {
-    setErrorMessage(err.error.message.slice(20));
-    setTimeout(() => {
-      setErrorMessage('')
-    }, 3000)
+    if (err.error) {
+      setErrorMessage(err.error.message.slice(20));
+      setTimeout(() => {
+        setErrorMessage('')
+      }, 3000)
+    }
   }
 
   const addNewBookAndCopiesCount = async () => {
@@ -92,8 +94,12 @@ const BookLibrary = ({ contractAddress }: USContract) => {
     setExistingBookCopiesCount(0);
   }
 
-  const getId = (title) => {
-    const id =  bookLibraryContract.generateIdFromTitle(title)
+  const getId = async (title) => {
+    let id = 0
+    await bookLibraryContract.generateIdFromTitle(title).then( data =>{
+      id = data
+    })
+    
     return id
   }
 
