@@ -1,5 +1,6 @@
 import type { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
+import { BigNumber } from "ethers";
 import { useEffect, useState } from "react";
 import useBookLibraryContract from "../hooks/useBookLibraryContract";
 import Loader from "./Loader";
@@ -94,7 +95,7 @@ const BookLibrary = ({ contractAddress }: USContract) => {
     setExistingBookCopiesCount(0);
   }
 
-  const getId = (title: string): Promise<number> => {
+  const getId = (title: string): Promise<BigNumber> => {
     return Promise.resolve(bookLibraryContract.generateIdFromTitle(title))
   };
 
