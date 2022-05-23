@@ -1,6 +1,5 @@
 import type { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
-import { BigNumber } from "ethers";
 import { useEffect, useState } from "react";
 import useBookLibraryContract from "../hooks/useBookLibraryContract";
 import Loader from "./Loader";
@@ -96,11 +95,12 @@ const BookLibrary = ({ contractAddress }: USContract) => {
   }
 
   const getId = async (title) => {
-    let id 
-    await bookLibraryContract.generateIdFromTitle(title).then(data => {
-      id = BigInt(data)
+    let id = 0
+    await bookLibraryContract.generateIdFromTitle(title).then( data =>{
+      id = data
     })
-    return id
+    
+    return BigInt(id)
   }
 
 
