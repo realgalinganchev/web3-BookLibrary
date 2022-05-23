@@ -110,7 +110,7 @@ const BookLibrary = ({ contractAddress }: USContract) => {
       getId(book[0]).then(data => {
         bookId = data.toString();
       })
-      const tx = await bookLibraryContract.borroBook(bookId);
+      const tx = await bookLibraryContract.borrowBook(bookId);
       setIsLoading(true);
       setTxHash(tx.hash);
       await tx.wait();
